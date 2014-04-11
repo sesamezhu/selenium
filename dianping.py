@@ -33,6 +33,6 @@ def checkByCode():
 	        checkIn(account, dper)
 
 driver = webdriver.Firefox()
-driver.get("http://www.dianping.com")
+driver.get("http://www.dianping.com/beijing")
 checkByCode()
 driver.quit()
