@@ -25,6 +25,7 @@ def doCheckIn(account, pwd):
 	inputElement.click()
 
 	driver.implicitly_wait(3)
+
 #	inputElement = driver.find_element_by_class_name("loginSuccess")
 #	print account + ":" + inputElement.text
 
