@@ -12,21 +12,21 @@ def writeCode(account):
 				print line	
 
 def doCheckIn(account, pwd):
-	inputElement = driver.find_element_by_id("J_usrname")
+	inputElement = driver.find_element_by_id("user")
 	inputElement.send_keys(account)
 	print inputElement.text
-	inputElement = driver.find_element_by_id("J_pwd")
+	inputElement = driver.find_element_by_id("password")
 	inputElement.send_keys(pwd)
 	input_seccode=raw_input('enter:')
-	inputElement = driver.find_element_by_id("J_validate")
+	inputElement = driver.find_element_by_id("code")
 	inputElement.send_keys(input_seccode)
 	
-	inputElement = driver.find_element_by_id("J_login-btn")
+	inputElement = driver.find_element_by_class_name("btn")
 	inputElement.click()
 
 	driver.implicitly_wait(3)
-	inputElement = driver.find_element_by_class_name("loginSuccess")
-	print account + ":" + inputElement.text
+#	inputElement = driver.find_element_by_class_name("loginSuccess")
+#	print account + ":" + inputElement.text
 
 def checkIn(account, pwd):
 	driver.delete_all_cookies()
