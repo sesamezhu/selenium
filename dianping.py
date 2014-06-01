@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
+import macNotify
 
 def doCheckIn(account):
 	inputElement = driver.find_element_by_css_selector(".J_signbtn>a")
@@ -19,6 +20,7 @@ def checkIn(account, dper):
 		pass
 	except Exception, e:
 		print e
+		macNotify.notify("check in failure", account, str(e))
 		pass
 	else:
 		pass

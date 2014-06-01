@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
+import macNotify
 
 def writeCode(account):
 	for cookie in driver.get_cookies():
@@ -39,6 +40,7 @@ def checkIn(account, pwd):
 		pass
 	except Exception, e:
 		print e
+		macNotify.notify('check in failure', account, e)
 		pass
 	else:
 		pass
