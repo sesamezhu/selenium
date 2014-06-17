@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
@@ -11,6 +12,8 @@ def doCheckIn(account):
 	print inputElement.text
 	inputElement.click()
 	print account + ":" + inputElement.text
+	if(inputElement.text != u"已打卡"):
+		raise Exception(inputElement.text)
 
 def logError(message, e):
 	print message
