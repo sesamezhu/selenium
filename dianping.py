@@ -8,7 +8,7 @@ import datetime
 import sys
 
 def doCheckIn(account):
-	inputElement = driver.find_element_by_css_selector(".J_signbtn>a")
+	inputElement = driver.find_element_by_css_selector(".J_signin_btn")
 	print inputElement.text
 	inputElement.click()
 	print account + ":" + inputElement.text

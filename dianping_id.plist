@@ -10,6 +10,8 @@
 	</array>
 	<key>KeepAlive</key>
 	<false/>
+	<key>RunAtLoad</key>
+	<false/>
 	<key>StartCalendarInterval</key>
 	<dict>
 		<key>Hour</key>
