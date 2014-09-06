@@ -1,31 +1,51 @@
+# -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
-from selenium.webdriver.common.by import By
+import macNotify
+import datetime
+import sys
 
-import os, re
+def doCheckIn(account, pwd):
+	frame = driver.find_element_by_tag_name("iframe")
+	driver.get(frame.get_attribute("src"))
+	inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
+	inputElement.click()
+	print account + ":" + inputElement.get_attribute("value")
 
-# Create a new instance of the Firefox driver
+def logError(message, e):
+	print message
+	print e
+	with open('error.code.txt', 'a') as errorTxt:
+		errorTxt.write(str(datetime.datetime.now()))
+		errorTxt.write(message)
+		errorTxt.write(str(e))
+		errorTxt.write('\n')
+
+def checkIn(account, pwd):
+	try:
+		doCheckIn(account, pwd)
+		pass
+	except Exception, e:
+		logError('etao checkIn failure', e)
+		macNotify.notify("etao checkIn failure", account, str(e))
+		pass
+	else:
+		pass
+	finally:
+		pass
+
+def checkByCode():
+	with open('etao.code.txt') as codeTxt:
+	    for line in codeTxt:
+	        nos = line.rstrip().split(' ')
+	        account, pwd = nos[0], nos[1]
+	        checkIn(account, pwd)
+
+reload(sys) 
+sys.setdefaultencoding('utf8')
 driver = webdriver.Firefox()
-
-driver.get("http://login.etao.com")
-
-# find the element that's name attribute is q (the google search box)
-driver.switch_to_frame(0)
-element = WebDriverWait(driver, 10, 1).until(EC.presence_of_element_located((By.ID, "TPL_username_1")))
-
-pwd = os.path.split(os.path.realpath(__file__))[0]
-username = ''
-password = ''
-with open(os.path.join(pwd, './etao.code.txt')) as auth_txt:
-    auth_code = auth_txt.read().strip().split(' ')
-    username, password = auth_code[0], auth_code[1]
-
-element.send_keys(username)
-driver.find_element_by_id("TPL_password_1").send_keys(password)
-driver.find_element_by_id("J_SubmitStatic").click()
-element = WebDriverWait(driver, 10, 1).until(EC.presence_of_element_located((By.CLASS_NAME, "ci_receive")))
-print element.text
-element.click()
-driver.quit()
+driver.get("http://login.etao.com/?logintype=taobao")
+checkByCode()
+# driver.quit()
