@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 import macNotify
+import sys
 
 def writeCode(account):
 	for cookie in driver.get_cookies():
@@ -12,16 +14,27 @@ def writeCode(account):
 				txt.write(line)
 				print line	
 
+def sendViewCode():
+	try:
+		inputElement = driver.find_element_by_id("code")
+		input_seccode=unicode(raw_input('enter:'))
+		pass
+	except Exception, e:
+		print 'no view code'
+		pass
+	else:
+		inputElement.send_keys(input_seccode)
+		pass
+	finally:
+		pass
+
 def doCheckIn(account, pwd):
 	inputElement = driver.find_element_by_id("user")
 	inputElement.send_keys(account)
 	print inputElement.text
 	inputElement = driver.find_element_by_id("password")
 	inputElement.send_keys(pwd)
-	input_seccode=raw_input('enter:')
-	inputElement = driver.find_element_by_id("code")
-	inputElement.send_keys(input_seccode)
-	
+	sendViewCode()
 	inputElement = driver.find_element_by_class_name("btn")
 	inputElement.click()
 
@@ -40,7 +53,11 @@ def checkIn(account, pwd):
 		pass
 	except Exception, e:
 		print e
-		macNotify.notify('check in failure', account, e)
+		try:
+			macNotify.notify('check in failure', account, e)
+			pass
+		except Exception, notifyE:
+			print notifyE
 		pass
 	else:
 		pass
@@ -50,10 +67,14 @@ def checkIn(account, pwd):
 def checkByCode():
 	with open('dpid.code.txt') as codeTxt:
 	    for line in codeTxt:
+	    	if(line.startswith('#')):
+	    		continue
 	        nos = line.rstrip().split(' ')
 	        account, pwd = nos[0], nos[1]
 	        checkIn(account, pwd)
 
+reload(sys) 
+sys.setdefaultencoding('utf8')
 driver = webdriver.Firefox()
 #driver.get("http://www.dianping.com/beijing")
 checkByCode()

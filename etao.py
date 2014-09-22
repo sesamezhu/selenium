@@ -12,6 +12,8 @@ def doCheckIn(account, pwd):
 	driver.get(frame.get_attribute("src"))
 	inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
 	inputElement.click()
+	inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
+	inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
 	print account + ":" + inputElement.get_attribute("value")
 
 def logError(message, e):
