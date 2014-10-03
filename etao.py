@@ -8,13 +8,37 @@ import datetime
 import sys
 
 def doCheckIn(account, pwd):
+	driver.delete_all_cookies()
+	driver.get("http://login.etao.com/?logintype=taobao")
 	frame = driver.find_element_by_tag_name("iframe")
 	driver.get(frame.get_attribute("src"))
-	inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
+	driver.implicitly_wait(3)
+	#inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
+	#inputElement.click()
+	inputElement = driver.find_element_by_id("J_SafeLoginCheck")
+	if inputElement.get_attribute("value") == "on":
+		print inputElement.get_attribute("value")
+		inputElement.click()
+	print datetime.datetime.now()
+	#print inputElement.get_attribute("value")
+	inputElement = driver.find_element_by_id("TPL_username_1")
+	inputElement.send_keys(account)
+	inputElement = driver.find_element_by_id("TPL_password_1")
+	inputElement.send_keys(pwd)
+	inputElement = driver.find_element_by_id("J_SubmitStatic")
 	inputElement.click()
-	inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
-	inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
-	print account + ":" + inputElement.get_attribute("value")
+	#print account + ":" + inputElement.get_attribute("value")
+
+def signClick():
+	driver.get("http://www.etao.com")
+	inputElement = driver.find_element_by_css_selector(".ci_receive")
+	inputElement.click()
+	print inputElement.text
+
+	driver.get("http://taojinbi.taobao.com/index.htm")
+	inputElement = driver.find_element_by_css_selector(".J_GoTodayBtn")
+	inputElement.click()
+	print inputElement.text
 
 def logError(message, e):
 	print message
@@ -28,6 +52,7 @@ def logError(message, e):
 def checkIn(account, pwd):
 	try:
 		doCheckIn(account, pwd)
+		signClick()
 		pass
 	except Exception, e:
 		logError('etao checkIn failure', e)
@@ -48,6 +73,5 @@ def checkByCode():
 reload(sys) 
 sys.setdefaultencoding('utf8')
 driver = webdriver.Firefox()
-driver.get("http://login.etao.com/?logintype=taobao")
 checkByCode()
-# driver.quit()
+#driver.quit()
