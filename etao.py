@@ -12,15 +12,14 @@ def doCheckIn(account, pwd):
 	driver.get("http://login.etao.com/?logintype=taobao")
 	frame = driver.find_element_by_tag_name("iframe")
 	driver.get(frame.get_attribute("src"))
-	driver.implicitly_wait(3)
 	#inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
 	#inputElement.click()
-	inputElement = driver.find_element_by_id("J_SafeLoginCheck")
-	if inputElement.get_attribute("value") == "on":
-		print inputElement.get_attribute("value")
-		inputElement.click()
-	print datetime.datetime.now()
-	#print inputElement.get_attribute("value")
+	#inputElement = driver.find_element_by_css_selector("input[id=J_SafeLoginCheck]")
+	#print inputElement.get_attribute("value") + str(datetime.datetime.now())
+	#if inputElement.get_attribute("value") == "on":
+	#	inputElement.click()
+	#inputElement = driver.find_element_by_css_selector("#J_PasswordEdit object embed")
+
 	inputElement = driver.find_element_by_id("TPL_username_1")
 	inputElement.send_keys(account)
 	inputElement = driver.find_element_by_id("TPL_password_1")
@@ -66,6 +65,8 @@ def checkIn(account, pwd):
 def checkByCode():
 	with open('etao.code.txt') as codeTxt:
 	    for line in codeTxt:
+	    	if line.startswith('#'):
+	    		continue
 	        nos = line.rstrip().split(' ')
 	        account, pwd = nos[0], nos[1]
 	        checkIn(account, pwd)
@@ -73,5 +74,6 @@ def checkByCode():
 reload(sys) 
 sys.setdefaultencoding('utf8')
 driver = webdriver.Firefox()
+driver.implicitly_wait(5)
 checkByCode()
-#driver.quit()
+driver.quit()
