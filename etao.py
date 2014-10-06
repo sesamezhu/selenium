@@ -28,13 +28,16 @@ def doCheckIn(account, pwd):
 	inputElement.click()
 	#print account + ":" + inputElement.get_attribute("value")
 
+def getRandom():
+	return datetime.datetime.strftime(datetime.datetime.now(), "%Y%m%d%H%M%S%f")
+
 def signClick():
-	driver.get("http://www.etao.com")
+	driver.get("http://www.etao.com?__strftime=" + getRandom())
 	inputElement = driver.find_element_by_css_selector(".ci_receive")
 	inputElement.click()
 	print inputElement.text
 
-	driver.get("http://taojinbi.taobao.com/index.htm")
+	driver.get("http://taojinbi.taobao.com/index.htm?__strftime=" + getRandom())
 	inputElement = driver.find_element_by_css_selector(".J_GoTodayBtn")
 	inputElement.click()
 	print inputElement.text
@@ -71,9 +74,10 @@ def checkByCode():
 	        account, pwd = nos[0], nos[1]
 	        checkIn(account, pwd)
 
-reload(sys) 
-sys.setdefaultencoding('utf8')
-driver = webdriver.Firefox()
-driver.implicitly_wait(2)
-checkByCode()
-driver.quit()
+print getRandom()
+# reload(sys) 
+# sys.setdefaultencoding('utf8')
+# driver = webdriver.Firefox()
+# driver.implicitly_wait(5)
+# checkByCode()
+# driver.quit()
