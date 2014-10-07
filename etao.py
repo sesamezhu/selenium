@@ -77,6 +77,6 @@ def checkByCode():
 reload(sys) 
 sys.setdefaultencoding('utf8')
 driver = webdriver.Firefox()
-driver.implicitly_wait(5)
+# driver.implicitly_wait(5)
 checkByCode()
 driver.quit()
