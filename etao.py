@@ -39,8 +39,8 @@ def signClick():
 
 	driver.get("http://taojinbi.taobao.com/index.htm?__strftime=" + getRandom())
 	inputElement = driver.find_element_by_css_selector(".J_GoTodayBtn")
-	inputElement.click()
 	print inputElement.text
+	inputElement.click()
 
 def logError(message, e):
 	print message
@@ -74,7 +74,6 @@ def checkByCode():
 	        account, pwd = nos[0], nos[1]
 	        checkIn(account, pwd)
 
-print getRandom()
 reload(sys) 
 sys.setdefaultencoding('utf8')
 driver = webdriver.Firefox()
