@@ -21,6 +21,7 @@ def doCheckIn(account, pwd):
 	#inputElement = driver.find_element_by_css_selector("#J_PasswordEdit object embed")
 
 	inputElement = driver.find_element_by_id("TPL_username_1")
+	inputElement.send_keys('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b')
 	inputElement.send_keys(account)
 	inputElement = driver.find_element_by_id("TPL_password_1")
 	inputElement.send_keys(pwd)
@@ -28,19 +29,25 @@ def doCheckIn(account, pwd):
 	inputElement.click()
 	#print account + ":" + inputElement.get_attribute("value")
 
-def getRandom():
-	return datetime.datetime.strftime(datetime.datetime.now(), "%Y%m%d%H%M%S%f")
+def appendRandom(prefix):
+	return prefix + "random_dt=" + datetime.datetime.strftime(datetime.datetime.now(), "%Y%m%d%H%M%S%f")
 
 def signClick():
-	driver.get("http://www.etao.com?__strftime=" + getRandom())
+	driver.get("http://www.etao.com")
 	inputElement = driver.find_element_by_css_selector(".ci_receive")
 	inputElement.click()
 	print inputElement.text
 
-	driver.get("http://taojinbi.taobao.com/index.htm?__strftime=" + getRandom())
+	driver.get("http://taojinbi.taobao.com/index.htm")
 	inputElement = driver.find_element_by_css_selector(".J_GoTodayBtn")
 	print inputElement.text
 	inputElement.click()
+	
+	driver.get("http://vip.tmall.com/?signIn=true")
+	inputElement = driver.find_element_by_css_selector(".J_LotteryBtn")
+	inputElement.click()
+	print inputElement.text
+
 
 def logError(message, e):
 	print message
