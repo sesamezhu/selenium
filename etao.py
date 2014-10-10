@@ -36,18 +36,23 @@ def signClick():
 	driver.get("http://www.etao.com")
 	inputElement = driver.find_element_by_css_selector(".ci_receive")
 	inputElement.click()
-	print inputElement.text
+	print "etao:" + inputElement.text
 
-	driver.get("http://taojinbi.taobao.com/index.htm")
-	inputElement = driver.find_element_by_css_selector(".J_GoTodayBtn")
-	print inputElement.text
-	inputElement.click()
-	
 	driver.get("http://vip.tmall.com/?signIn=true")
 	inputElement = driver.find_element_by_css_selector(".J_LotteryBtn")
 	inputElement.click()
-	print inputElement.text
+	print "vip.tmall:" + inputElement.text
 
+	driver.get("http://ka.tmall.com")
+	inputElement = driver.find_element_by_css_selector("#signTrigger")
+	inputElement.click()
+	print "ka.tmail:" + inputElement.text
+
+	driver.get("http://taojinbi.taobao.com/index.htm")
+	inputElement = driver.find_element_by_css_selector(".J_GoTodayBtn")
+	print "taojinbi:" + inputElement.text
+	inputElement.click()
+	
 
 def logError(message, e):
 	print message
@@ -84,6 +89,6 @@ def checkByCode():
 reload(sys) 
 sys.setdefaultencoding('utf8')
 driver = webdriver.Firefox()
-# driver.implicitly_wait(5)
+driver.implicitly_wait(5)
 checkByCode()
 driver.quit()
