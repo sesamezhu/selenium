@@ -63,7 +63,7 @@ def signClick(driver):
 	inputElement = driver.find_element_by_css_selector(".J_GoTodayBtn")
 	print "taojinbi:" + inputElement.text
 	inputElement.click()
-	sendTaoJinBiCode()
+	sendTaoJinBiCode(driver)
 
 	driver.get("http://ka.tmall.com")
 	time.sleep(2)
@@ -81,6 +81,7 @@ def logError(message, e):
 		errorTxt.write('\n')
 
 def checkIn(account, pwd):
+	print account + " begin"
 	driver = webdriver.Firefox()
 	driver.implicitly_wait(2)
 	try:
@@ -94,5 +95,6 @@ def checkIn(account, pwd):
 	else:
 		pass
 	finally:
+		print account + " end"
 		driver.quit()
 		pass
