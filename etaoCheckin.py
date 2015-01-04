@@ -10,7 +10,7 @@ import sys
 
 def doCheckIn(driver, account, pwd):
 	driver.delete_all_cookies()
-	driver.get("http://login.etao.com/?logintype=taobao")
+	driver.get("http://login.tmall.com/?redirect_url=http%3A%2F%2Fwww.tmall.com%2F")
 	frame = driver.find_element_by_tag_name("iframe")
 	driver.get(frame.get_attribute("src"))
 	#inputElement = driver.find_element_by_css_selector("label[for='J_SafeLoginCheck']")
@@ -63,10 +63,10 @@ def signClick(driver):
 	inputElement = driver.find_element_by_css_selector(".J_GoTodayBtn")
 	print "taojinbi:" + inputElement.text
 	inputElement.click()
-	sendTaoJinBiCode(driver)
+	#sendTaoJinBiCode(driver)
 
 	driver.get("http://ka.tmall.com")
-	time.sleep(2)
+	time.sleep(1)
 	inputElement = driver.find_element_by_id("signTrigger")
 	inputElement.click()
 	print "ka.tmail:" + inputElement.get_attribute("title")
